@@ -1,13 +1,13 @@
 import nltk
 nltk.download('popular')
 from nltk.stem import WordNetLemmatizer
-lemmatizer = WordNetLemmatizer()
 import numpy as np
 import joblib
 import json
 import random
 from flask import Flask, render_template, request
-import mtranslate
+
+lemmatizer = WordNetLemmatizer()
 
 # Load dữ liệu tin tức
 with open('news_scrap_data.json', encoding='utf-8') as file:
@@ -29,21 +29,47 @@ def bow(sentence, words, show_details=True):
                     print("found in bag: %s" % w)
     return np.array(bag)
 
+import random
 
 def chatbot_response(msg):
-    if 'tin tức' in msg.lower():
-        random.shuffle(news_scrap_data['intents'])  # Xáo trộn danh sách tin tức
-        news_responses = []
-        for news in news_scrap_data['intents']:
-            title = news['title']
-            summary = news['summary']
-            category= news['category']
-            link = news['news_link']
-            news_responses.append(f"<strong>Tiêu đề:</strong>{title}<br> \n <strong>Nội dung:</strong> {summary}<br> \n <strong>Chủ đề:</strong> {category}<br> \n <a href='{link}' target='_blank'>Xem thêm</a><br><br>")
-            break 
+    categories = ["Thời sự", "Góc nhìn", "Thế giới", "Podcasts", "Kinh doanh", "Bất động sản", "Khoa học", 
+                  "Giải trí", "Thể thao", "Pháp luật", "Giáo dục", "Sức khỏe", "Đời sống", "Du lịch", 
+                  "Số hóa", "Xe", "Ý kiến", "Tâm sự", "Thư giãn"]
+    
+    selected_category = None
+    for category in categories:
+        if category.lower() in msg.lower():
+            selected_category = category
+            break
+    
+    news_responses = []
+    
+    if selected_category:
+        # Lọc ra tất cả tin tức trong danh mục được chọn
+        selected_news = [news for news in news_scrap_data['intents'] if news['category'] == selected_category]
+        
+        # Kiểm tra xem có tin tức nào trong danh mục không
+        if selected_news:
+            # Chọn một tin tức ngẫu nhiên từ danh sách tin tức đã lọc
+            random_news = random.choice(selected_news)
+            
+            title = random_news['title']
+            summary = random_news['summary']
+            link = random_news['news_link']
+            
+            news_responses.append(f"<strong>Tiêu đề:</strong> {title}<br> \n <strong>Nội dung:</strong> {summary}<br> \n <strong>Chủ đề:</strong> {random_news['category']}<br> \n <a href='{link}' target='_blank'>Xem thêm</a><br><br>")
+        else:
+            news_responses.append("Không có tin tức nào trong chủ đề này.")
+            
         return "".join(news_responses)
 
-
+    elif 'tin tức' in msg.lower():
+        random.shuffle(news_scrap_data['intents'])  # Shuffle the news list
+        news = news_scrap_data['intents'][0]
+        title = news['title']
+        summary = news['summary']
+        link = news['news_link']
+        return f"<strong>Tiêu đề:</strong> {title}<br> \n <strong>Nội dung:</strong> {summary}<br> \n <strong>Chủ đề:</strong> {news['category']}<br> \n <a href='{link}' target='_blank'>Xem thêm</a><br><br>"
 
 
 app = Flask(__name__)
@@ -60,4 +86,3 @@ def get_bot_response():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
