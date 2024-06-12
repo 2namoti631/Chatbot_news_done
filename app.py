@@ -3,6 +3,8 @@ import numpy as np
 import joblib
 import json
 import random
+from bs4 import BeautifulSoup
+import requests
 from flask import Flask, render_template, request
 from mtranslate import translate
 
@@ -105,6 +107,15 @@ def chatbot_response(msg):
         if content:
             return classify_intent_questions(content)
         return "Vui lòng nhập đoạn văn bản cần phân loại."
+      
+    elif 'tin tức' in msg.lower():
+        random.shuffle(news_scrap_data['intents'])  # Shuffle the news list
+        news = news_scrap_data['intents'][0]
+        title = news['title']
+        link = news['news_link']
+        # Tóm tắt tin tức từ link bài viết
+        summary = summarize_news(link)
+        return f"<strong>Tiêu đề:</strong> {title}<br> \n <strong>Nội dung tóm tắt:</strong> {summary}<br> \n <strong>Chủ đề:</strong> {news['category']}<br> \n <a href='{link}' target='_blank'>Xem thêm</a><br><br>"
 
 app = Flask(__name__)
 app.static_folder = 'static'
