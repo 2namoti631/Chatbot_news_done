@@ -1,9 +1,6 @@
 # Chatbot - News - Done
 Chatbot Tin tức (xử lý ngôn ngữ tự nhiên)
-![Uploading image.png…]()
-![Uploading image.png…]()
-![Uploading image.png…]()
-![Uploading image.png…]()
+
 
 
 # Giới thiệu
