@@ -1,5 +1,10 @@
 # Chatbot - News - Done
 Chatbot Tin tức (xử lý ngôn ngữ tự nhiên)
+![Uploading image.png…]()
+![Uploading image.png…]()
+![Uploading image.png…]()
+![Uploading image.png…]()
+
 
 # Giới thiệu
 Ứng dụng web Chatbot giúp người dùng cập nhật tin tức của trang báo Vnexpress. Ứng dụng được thiết kế dưới dạng hội thoại.
