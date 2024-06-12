@@ -1,7 +1,7 @@
 # Chatbot - News - Done
 Chatbot Tin tức (xử lý ngôn ngữ tự nhiên)
 <p align="center">
-    <img alt=Support height="350" src=""> 
+    <img alt=Support height="350" src="https://scontent.fhan20-1.fna.fbcdn.net/v/t39.30808-6/448267752_780831044187630_6616268657183629386_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=QjV_NnmuwCAQ7kNvgEsx3YT&_nc_ht=scontent.fhan20-1.fna&oh=00_AYA0Intq4n4m9gwrxx1Wmrvpq6Dli7Ce52qsTnzkEHHWGw&oe=666F81B1"> 
     </p>
 
 # Giới thiệu
