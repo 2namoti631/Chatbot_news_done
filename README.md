@@ -1,7 +1,7 @@
 # Chatbot - News - Done
 Chatbot Tin tức (xử lý ngôn ngữ tự nhiên)
 <p align="center">
-    <img alt=Support height="350" src="blob:https://www.facebook.com/12977603-ab86-4996-8f9d-24c9675fa6d0"> 
+    <img alt=Support height="350" src=""> 
     </p>
 
 # Giới thiệu
