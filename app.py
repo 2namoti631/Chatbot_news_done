@@ -79,7 +79,21 @@ def get_response_from_model(msg, model_conver, vectorizer_conver, intents):
 #  Tổng hợp các chức năng và để chatbot hiện thị với người dùng
 def chatbot_response(msg, data_conversation):
     
+    msg = msg.translate(str.maketrans('', '', string.punctuation)).lower() # tiền xử lý dữ liệu 
+
+    # In ra Chủ đề của câu hỏi người dùng nhập vào
+    if 'chủ đề của câu hỏi:' in msg.lower():
+        # Tách đoạn văn bản khỏi câu hỏi
+        content = msg.lower().replace('chủ đề của câu hỏi:', '').strip()
+        if content:
+            return classify_intent_questions(content)
+        return "Vui lòng nhập đoạn văn bản cần phân loại."
+      
+    # Hiển thị hội thoại với người dùng 
+    msg = msg.translate(str.maketrans('', '', string.punctuation)).lower() # tiền xử lý dữ liệu 
     # Chức năng in ra tin tức theo đúng chủ đề chọn
+
+    # In ra tin tức theo chủ đề
     categories = [
         "Thời sự", "Góc nhìn", "Thế giới", "Podcasts", "Kinh doanh", "Bất động sản", "Khoa học", 
                   "Giải trí", "Thể thao", "Pháp luật", "Giáo dục", "Sức khỏe", "Đời sống", "Du lịch", 
@@ -119,17 +133,6 @@ def chatbot_response(msg, data_conversation):
         summary = news['summary']
         link = news['news_link']
         return f"<strong>Tiêu đề:</strong> {title}<br> \n <strong>Nội dung:</strong> {summary}<br> \n <strong>Chủ đề:</strong> {news['category']}<br> \n <a href='{link}' target='_blank'>Xem thêm</a><br><br>"
-    
-    # In ra Chủ đề của câu hỏi người dùng nhập vào
-    elif 'chủ đề của câu hỏi:' in msg.lower():
-        # Tách đoạn văn bản khỏi câu hỏi
-        content = msg.lower().replace('chủ đề của câu hỏi:', '').strip()
-        if content:
-            return classify_intent_questions(content)
-        return "Vui lòng nhập đoạn văn bản cần phân loại."
-      
-    # Hiển thị hội thoại với người dùng 
-    msg = msg.translate(str.maketrans('', '', string.punctuation)).lower() # tiền xử lý dữ liệu 
     
     # Tìm input rồi in hội thoại tương ứng ra.
     for tag, patterns in data_conversation.items():
