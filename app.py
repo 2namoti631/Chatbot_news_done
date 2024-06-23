@@ -79,8 +79,6 @@ def get_response_from_model(msg, model_conver, vectorizer_conver, intents):
 #  Tổng hợp các chức năng và để chatbot hiện thị với người dùng
 def chatbot_response(msg, data_conversation):
     
-    msg = msg.translate(str.maketrans('', '', string.punctuation)).lower() # tiền xử lý dữ liệu 
-
     # In ra Chủ đề của câu hỏi người dùng nhập vào
     if 'chủ đề của câu hỏi:' in msg.lower():
         # Tách đoạn văn bản khỏi câu hỏi
@@ -89,9 +87,6 @@ def chatbot_response(msg, data_conversation):
             return classify_intent_questions(content)
         return "Vui lòng nhập đoạn văn bản cần phân loại."
       
-    # Hiển thị hội thoại với người dùng 
-    msg = msg.translate(str.maketrans('', '', string.punctuation)).lower() # tiền xử lý dữ liệu 
-    # Chức năng in ra tin tức theo đúng chủ đề chọn
 
     # In ra tin tức theo chủ đề
     categories = [
